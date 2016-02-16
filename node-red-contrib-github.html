@@ -1,0 +1,43 @@
+<!-- Config Node -->
+<script type="text/javascript">
+    RED.nodes.registerType('github-repo',{
+      // node definition
+      category: 'config',
+      credentials: {
+        token: {type: "password"},
+        apikey: {type:"password"}
+      },
+      label: function() {
+        return this.name;
+      },
+      exportable: false,
+      oneditprepare: function() {
+      },
+      oneditsave: function() {
+      },
+    });
+</script>
+
+<script type="text/x-red" data-template-name="github-credentials">
+    <div class="form-row" id="node-config-github-row"></div>
+    <input type="hidden" id="node-config-input-screen_name">
+</script>
+
+
+<script type="text/javascript">
+    RED.nodes.registerType('github-repo',{
+        // node definition
+        category: 'github',
+        color:"#787878",
+        input: 1,
+        output: 1,
+        icon: "github.png",
+    });
+</script>
+
+<script type="text/x-red" data-template-name="Github Repo">
+  <div class="form-row">
+      <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+      <input type="text" id="node-input-name" placeholder="Name">
+  </div>
+</script>
