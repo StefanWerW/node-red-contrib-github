@@ -1,0 +1,21 @@
+{
+  "github": {
+    "label": {
+      "github-id": "Github ID",
+      "config": {
+        "token": "token",
+        "name": "Name"
+      },
+      "username": "User name",
+      "repository": "Repository"
+    },
+    "select": {
+      "usernameprop":"Use message property",
+      "usernamepre":"Define username",
+      "repo":{
+        "prop":"Use message property",
+        "pre":"Define Repository"
+      }
+    }
+  }
+}
