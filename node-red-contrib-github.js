@@ -46,9 +46,18 @@ module.exports = function(RED) {
                   node.send(msg);
               }
           }
-          
+          function callbackErr(err) {
+              if(err) node.error(err)
+          }
+
           if(node.action == "show"){
               repo.show(callbackErrData);
+          }else if (node.action == "fork"){
+              repo.fork(callbackErr);
+          }else if (node.action == "listforks"){
+              repo.listForks(callbackErrData);
+          }else if (node.action == "listbraches"){
+              repo.listBranches(callbackErrData);
           }else if (node.action == "delete") {
               repo.deleteRepo(callbackErrData);
           }else if (node.action == "contents") {
@@ -64,7 +73,7 @@ module.exports = function(RED) {
               var path_f = RED.util.evaluateNodeProperty(node.path,node.pathType,node,msg);
               var contents_f = RED.util.evaluateNodeProperty(node.contents,node.contentsType,node,msg);
               var options = {};
-              repo.write(branch_f, path_f, contents_f, 'YOUR_COMMIT_MESSAGE', options, function(err) {if(err) node.error(err)});
+              repo.write(branch_f, path_f, contents_f, 'YOUR_COMMIT_MESSAGE', options, callbackErr);
           }
       });
     }

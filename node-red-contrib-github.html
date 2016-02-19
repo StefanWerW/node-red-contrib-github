@@ -57,7 +57,7 @@
         $("#node-input-action").change(function(){
             var so = $("#node-input-action option:selected").val();
             hideExtraActions();
-            if(so=="show" || so=="delete"){
+            if(so=="show" || so=="delete" || so=="listbraches" || so=="fork" || so=="listforks"){
             }else if (so == "read" || so == "contents") {
                 $("#node-action-branch").show();
                 $("#node-action-path").show();
@@ -71,12 +71,7 @@
     }
 
     function oneditsave(){
-        var act = $("#node-input-action option:selected").val();
-        if(act == "show" || act == "read"){
-            this.outputs = 1;
-        }else{
-            this.outputs = 0;
-        }
+        this.outputs = $("#node-input-action option:selected").attr("outputs");
     }
 
     RED.nodes.registerType('github-repo',{
@@ -135,11 +130,14 @@
   <div class="form-row">
       <label for="node-input-action"><i class="fa fa-wrench"></i>Action</label>
       <select type="text" id="node-input-action" style="display: inline-block; width: 250px; vertical-align: top;">
-          <option value="show">Show info</option>
-          <option value="contents">Get contents</option>
-          <option value="read">Read file</option>
-          <option value="write">Write to file</option>
-          <option value="delete">Delete repo</option>
+          <option value="show" outputs="1">Show info</option>
+          <option value="contents" outputs="1">Get contents</option>
+          <option value="read" outputs="1">Read file</option>
+          <option value="write" outputs="0">Write to file</option>
+          <option value="delete" outputs="0">Delete repo</option>
+          <option value="fork" outputs="0">Fork a repo</option>
+          <option value="listforks" outputs="1">List forks</option>
+          <option value="listbraches" outputs="1">Retrieve branches</option>
       </select>
       <div class="form-row" id="node-action-branch">
           <label for="node-input-branch">&nbsp;</label>Branch:<input type="text" style="width:208px" id="node-input-branch">
