@@ -1,18 +1,21 @@
-node-red-contrib-github
-=====================
+#node-red-contrib-github
+Interacts with Github using [node-red](http://nodered.org/) and Internet of things.
 
-Install
--------
+This is a wrapper around [github-api](https://www.npmjs.com/package/github-api). Check it out for more info.
+
+##Install
+
 
 Run the following command in the root directory of your Node-RED install, usually
 this is ~/.node-red .
 
         npm install node-red-contrib-github
 
-Usage
------
+##Usage
+
 
 Provides a node to interact with Github repositories
+
 
 ###Repo
 
@@ -23,11 +26,12 @@ Github Repo node. Can be used to search either:
  - Read content at a certain path
  - Write: Store content at a certain path. If the file specified in the path exists, the content is updated. If the file doesn't exist, it's created on the fly
  - Delete a repository
- 
 
 
 
 ##TODO
+
+Features to be implemented
 
 ###Repo
 
@@ -53,6 +57,6 @@ Github Repo node. Can be used to search either:
  - Unstar a repository
 
 ###User API
-
+ - Everything
 ###Gist API
- 
+ - Everything
