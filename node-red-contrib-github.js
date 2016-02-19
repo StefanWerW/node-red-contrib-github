@@ -54,6 +54,8 @@ module.exports = function(RED) {
               repo.show(callbackErrData);
           }else if (node.action == "fork"){
               repo.fork(callbackErr);
+          }else if (node.action == "contributors"){
+              repo.contributors(callbackErrData);
           }else if (node.action == "listforks"){
               repo.listForks(callbackErrData);
           }else if (node.action == "listbraches"){
