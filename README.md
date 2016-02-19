@@ -57,6 +57,9 @@ Features to be implemented
  - Unstar a repository
 
 ###User API
+
  - Everything
+
+
 ###Gist API
  - Everything
