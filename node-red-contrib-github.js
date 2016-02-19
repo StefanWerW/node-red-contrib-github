@@ -17,59 +17,56 @@ module.exports = function(RED) {
       RED.nodes.createNode(this,n);
       this.github = n.github;
       this.username = n.username;
-      this.usernameprop = n.usernameprop;
-      this.reponame = n.repository;
-      this.repoprop = n.repoprop;
+      this.usernameType = n.usernameType;
+      this.repository = n.repository;
+      this.repositoryType = n.repositoryType;
+      this.action = n.action;
+      this.branch = n.branch;
+      this.branchType = n.branchType;
+      this.path = n.path;
+      this.pathType = n.pathType;
+      this.contents = n.contents;
+      this.contentsType = n.contentsType;
       var github = new (require('github-api'))({
         token: RED.nodes.getNode(n.github).credentials.token,
         auth: "oauth"
       });
       var node = this;
       this.on('input', function(msg) {
-        //is using user prop?
-        var username_f = "";
-        if(node.usernameprop){
-          if(msg[node.username]){
-            username_f = msg[node.username];
-          }else{
-            node.error("Property", node.username, "not fund on msg");
-            return;
-          }
-        }else{
-          if(node.username && node.username!=""){
-            username_f = node.username;
-          }else{
-            node.error("No username defined");
-            return;
-          }
-        }
 
-        var reponame_f = "";
-        if(node.repoprop){
-            if(msg[node.reponame]){
-                reponame_f = msg[node.reponame];
-            }else{
-                node.error("Property", node.reponame, "not fund on msg");
-                return;
-            }
-        }else{
-            if(node.reponame && node.reponame!=""){
-                reponame_f = node.reponame;
-            }else{
-                node.error("No repo name defined");
-                return;
-            }
-        }
+          var username_f = RED.util.evaluateNodeProperty(node.username,node.usernameType,node,msg);
+          var repository_f = RED.util.evaluateNodeProperty(node.repository,node.repositoryType,node,msg);
+          var repo = github.getRepo(username_f, repository_f);
 
-        var repo = github.getRepo(username_f, reponame_f);
-        repo.show(function(err, repo) {
-            if(err){
-                node.error(err);
-            }else{
-                msg.payload = repo;
-                node.send(msg);
-            }
-        });
+          if(node.action == "show"){
+              repo.show(function(err, repo) {
+                  if(err){
+                      node.error(err);
+                  }else{
+                      msg.payload = repo;
+                      node.send(msg);
+                  }
+              });
+          }else if(node.action == "read"){
+              var branch_f = RED.util.evaluateNodeProperty(node.branch,node.branchType,node,msg);
+              var path_f = RED.util.evaluateNodeProperty(node.path,node.pathType,node,msg);
+
+              repo.read(branch_f, path_f, function(err, data) {
+                  if(err){
+                      node.error(err);
+                  }else{
+                      msg.payload = repo;
+                      node.send(msg);
+                  }
+              });
+          }else if (node.action == "write") {
+              var branch_f = RED.util.evaluateNodeProperty(node.branch,node.branchType,node,msg);
+              var path_f = RED.util.evaluateNodeProperty(node.path,node.pathType,node,msg);
+              var contents_f = RED.util.evaluateNodeProperty(node.contents,node.contentsType,node,msg);
+
+              var options = {};
+              repo.write(branch_f, path_f, contents_f, 'YOUR_COMMIT_MESSAGE', options, function(err) {if(err) node.error(err)});
+          }
       });
     }
     RED.nodes.registerType("github-repo", GithubRepo);
