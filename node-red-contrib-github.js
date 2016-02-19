@@ -33,21 +33,26 @@ module.exports = function(RED) {
         });
         var node = this;
         this.on('input', function(msg) {
-
+            node.status({fill:"blue",shape:"ring",text:node.action});
             var username_f = RED.util.evaluateNodeProperty(node.username,node.usernameType,node,msg);
             var repository_f = RED.util.evaluateNodeProperty(node.repository,node.repositoryType,node,msg);
             var repo = github.getRepo(username_f, repository_f);
 
             function callbackErrData(err, data){
                 if(err){
+                    node.status({fill:"red",shape:"dot",text:"Error" + node.action});
                     node.error(err);
                 }else{
                     msg.payload = data;
+                    node.status({});
                     node.send(msg);
                 }
             }
             function callbackErr(err) {
-                if(err) node.error(err)
+                if(err){
+                    node.status({fill:"red",shape:"dot",text:"Error" + node.action});
+                    node.error(err);
+                }
             }
 
             if(node.action == "show"){

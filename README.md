@@ -16,6 +16,10 @@ this is ~/.node-red .
 
 Provides a node to interact with Github repositories
 
+Example:
+
+        [{"id":"8f8ed4e1.707128","type":"github-repo","z":"ffa794cc.005868","github":"","name":"Show node-red repo info","username":"node-red","usernameType":"str","repository":"node-red","repositoryType":"str","action":"show","branch":"master","branchType":"str","path":"","pathType":"str","contents":"payload","contentsType":"msg","outputs":"1","x":289,"y":139,"wires":[["cc7922e4.3386e"]]},{"id":"c08be771.3f7418","type":"github-user","z":"ffa794cc.005868","github":"","name":"Get your personal info","action":"show","outputs":"1","options":"","optionsType":"json","username":"","usernameType":"str","orgname":"","orgnameType":"str","x":286,"y":216,"wires":[["cc7922e4.3386e"]]},{"id":"3c27218.fc3d8de","type":"inject","z":"ffa794cc.005868","name":"","topic":"","payload":"","payloadType":"str","repeat":"","crontab":"","once":false,"x":90,"y":138,"wires":[["8f8ed4e1.707128"]]},{"id":"cc7922e4.3386e","type":"debug","z":"ffa794cc.005868","name":"","active":true,"console":"false","complete":"false","x":620,"y":211,"wires":[]},{"id":"33bd75c6.cc428a","type":"inject","z":"ffa794cc.005868","name":"","topic":"","payload":"","payloadType":"str","repeat":"","crontab":"","once":false,"x":86,"y":213,"wires":[["c08be771.3f7418"]]},{"id":"1f36c11d.e0c93f","type":"github-repo","z":"ffa794cc.005868","github":"","name":"Get contents of msg.payload at 'master'","username":"node-red","usernameType":"str","repository":"payload","repositoryType":"msg","action":"contents","branch":"master","branchType":"str","path":"","pathType":"str","contents":"payload","contentsType":"msg","outputs":"1","x":358,"y":298,"wires":[["cc7922e4.3386e"]]},{"id":"8575983e.7a8a68","type":"inject","z":"ffa794cc.005868","name":"","topic":"","payload":"node-red","payloadType":"str","repeat":"","crontab":"","once":false,"x":91,"y":299,"wires":[["1f36c11d.e0c93f"]]}]
+
 
 ###Repo
 
