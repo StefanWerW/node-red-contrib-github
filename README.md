@@ -29,6 +29,21 @@ Github Repo node. Can be used to search either:
  - Fork repository.
  - List forks.
  - Retrieve all available branches (aka heads) of a repository
+ - Get contributors list with additions, deletions, and commit counts
+
+
+ ###User API
+
+  - List repositories of the authenticated user, including private repositories and repositories in which the user is a collaborator and not an owner
+  - List organizations the authenticated user belongs to
+  - List authenticated user's gists
+  - List unread notifications for the authenticated user
+  - Show user information for a particular username. Also works for organizations. Pass in a falsy value (null, '', etc) for 'username' to retrieve user information for the currently authorized user
+  - List public repositories for a particular user
+  - List starred repositories for a particular user
+  - Create a new repo for the authenticated user
+  - List repositories for a particular organization. Includes private repositories if you are authorized.
+  - List all gists of a particular user. If username is ommitted gists of the current authenticated user are returned
 
 
 ##TODO
@@ -51,14 +66,9 @@ Features to be implemented
  - get the corresponding commit sha
  - Create a new reference
  - Delete a reference
- - Get contributors list with additions, deletions, and commit counts
  - Check if a repository is starred
  - Star a repository
  - Unstar a repository
-
-###User API
-
- - Everything
 
 
 ###Gist API
