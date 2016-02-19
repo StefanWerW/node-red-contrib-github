@@ -38,32 +38,31 @@ module.exports = function(RED) {
           var repository_f = RED.util.evaluateNodeProperty(node.repository,node.repositoryType,node,msg);
           var repo = github.getRepo(username_f, repository_f);
 
+          function callbackErrData(err, data){
+              if(err){
+                  node.error(err);
+              }else{
+                  msg.payload = data;
+                  node.send(msg);
+              }
+          }
+          
           if(node.action == "show"){
-              repo.show(function(err, repo) {
-                  if(err){
-                      node.error(err);
-                  }else{
-                      msg.payload = repo;
-                      node.send(msg);
-                  }
-              });
+              repo.show(callbackErrData);
+          }else if (node.action == "delete") {
+              repo.deleteRepo(callbackErrData);
+          }else if (node.action == "contents") {
+              var branch_f = RED.util.evaluateNodeProperty(node.branch,node.branchType,node,msg);
+              var path_f = RED.util.evaluateNodeProperty(node.path,node.pathType,node,msg);
+              repo.contents(branch_f, path_f, callbackErrData);
           }else if(node.action == "read"){
               var branch_f = RED.util.evaluateNodeProperty(node.branch,node.branchType,node,msg);
               var path_f = RED.util.evaluateNodeProperty(node.path,node.pathType,node,msg);
-
-              repo.read(branch_f, path_f, function(err, data) {
-                  if(err){
-                      node.error(err);
-                  }else{
-                      msg.payload = repo;
-                      node.send(msg);
-                  }
-              });
+              repo.read(branch_f, path_f, callbackErrData);
           }else if (node.action == "write") {
               var branch_f = RED.util.evaluateNodeProperty(node.branch,node.branchType,node,msg);
               var path_f = RED.util.evaluateNodeProperty(node.path,node.pathType,node,msg);
               var contents_f = RED.util.evaluateNodeProperty(node.contents,node.contentsType,node,msg);
-
               var options = {};
               repo.write(branch_f, path_f, contents_f, 'YOUR_COMMIT_MESSAGE', options, function(err) {if(err) node.error(err)});
           }

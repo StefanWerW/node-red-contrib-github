@@ -57,8 +57,8 @@
         $("#node-input-action").change(function(){
             var so = $("#node-input-action option:selected").val();
             hideExtraActions();
-            if(so=="show"){
-            }else if (so == "read") {
+            if(so=="show" || so=="delete"){
+            }else if (so == "read" || so == "contents") {
                 $("#node-action-branch").show();
                 $("#node-action-path").show();
             }else if (so == "write") {
@@ -122,13 +122,13 @@
 
   <div class="form-row">
       <label for="node-input-username"><i class="fa fa-user"></i><span data-i18n="github.label.username"></span></label>
-      <input type="text" id="node-input-username">
+      <input type="text" id="node-input-username" style="width:300px">
       <input type="hidden" id="node-input-usernameType">
   </div>
 
   <div class="form-row">
       <label for="node-input-repository"><i class="fa fa-book"></i><span data-i18n="github.label.repository"></span></label>
-      <input type="text" id="node-input-repository">
+      <input type="text" id="node-input-repository" style="width:300px">
       <input type="hidden" id="node-input-repositoryType">
   </div>
 
@@ -136,8 +136,10 @@
       <label for="node-input-action"><i class="fa fa-wrench"></i>Action</label>
       <select type="text" id="node-input-action" style="display: inline-block; width: 250px; vertical-align: top;">
           <option value="show">Show info</option>
-          <option value="read">Read</option>
-          <option value="write">Write</option>
+          <option value="contents">Get contents</option>
+          <option value="read">Read file</option>
+          <option value="write">Write to file</option>
+          <option value="delete">Delete repo</option>
       </select>
       <div class="form-row" id="node-action-branch">
           <label for="node-input-branch">&nbsp;</label>Branch:<input type="text" style="width:208px" id="node-input-branch">
