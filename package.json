@@ -1,13 +1,13 @@
 {
   "name": "node-red-contrib-github",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Github for node-red",
   "main": "node-red-contrib-github.js",
   "dependencies": {
-    "github-api":"0.x"
+    "github-api": "0.x"
   },
-  "node-red" : {
-    "nodes" : {
+  "node-red": {
+    "nodes": {
       "github": "node-red-contrib-github.js"
     }
   },
