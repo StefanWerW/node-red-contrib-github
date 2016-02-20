@@ -85,7 +85,7 @@ module.exports = function(RED) {
                 var path_f = RED.util.evaluateNodeProperty(node.path,node.pathType,node,msg);
                 var contents_f = RED.util.evaluateNodeProperty(node.contents,node.contentsType,node,msg);
                 var options = {};
-                repo.write(branch_f, path_f, contents_f, 'YOUR_COMMIT_MESSAGE', options, callbackErr);
+                repo.write(branch_f, path_f, contents_f, 'Add ' + path_f, options, callbackErr);
             }else if (node.action == "move") {
                 var branch_f = RED.util.evaluateNodeProperty(node.branch,node.branchType,node,msg);
                 var path_f = RED.util.evaluateNodeProperty(node.path,node.pathType,node,msg);
