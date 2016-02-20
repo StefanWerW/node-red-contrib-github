@@ -90,9 +90,6 @@ module.exports = function(RED) {
                 var branch_f = RED.util.evaluateNodeProperty(node.branch,node.branchType,node,msg);
                 var path_f = RED.util.evaluateNodeProperty(node.path,node.pathType,node,msg);
                 var pathto_f = RED.util.evaluateNodeProperty(node.pathto,node.pathtoType,node,msg);
-                node.warn(branch_f);
-                node.warn(path_f);
-                node.warn(pathto_f);
                 repo.move(branch_f, path_f, pathto_f, callbackErr);
             }else if (node.action == "remove") {
                 var branch_f = RED.util.evaluateNodeProperty(node.branch,node.branchType,node,msg);
