@@ -156,7 +156,10 @@
         outputs: 1,
         icon: "github.png",
         label: function() {
-            return this.name||"Repo";
+            if(this.name) return this.name;
+            else {
+                return this.action?this.action + " " + this.username + " / " + this.repository: "Repo";
+            }
         },
         paletteLabel: function(){
             return "github repo";

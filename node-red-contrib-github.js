@@ -33,6 +33,7 @@ module.exports = function(RED) {
           token: RED.nodes.getNode(n.github).credentials.token,
           auth: "oauth"
         });
+        this.status({});
         var node = this;
         this.on('input', function(msg) {
             node.status({fill:"blue",shape:"ring",text:node.action});
@@ -42,7 +43,7 @@ module.exports = function(RED) {
 
             function callbackErrData(err, data){
                 if(err){
-                    node.status({fill:"red",shape:"dot",text:"Error" + node.action});
+                    node.status({fill:"red",shape:"dot",text:"Error: " + node.action});
                     node.error(err);
                 }else{
                     msg.payload = data;
@@ -54,6 +55,8 @@ module.exports = function(RED) {
                 if(err){
                     node.status({fill:"red",shape:"dot",text:"Error" + node.action});
                     node.error(err);
+                }else{
+                    node.status({});
                 }
             }
 
@@ -87,6 +90,9 @@ module.exports = function(RED) {
                 var branch_f = RED.util.evaluateNodeProperty(node.branch,node.branchType,node,msg);
                 var path_f = RED.util.evaluateNodeProperty(node.path,node.pathType,node,msg);
                 var pathto_f = RED.util.evaluateNodeProperty(node.pathto,node.pathtoType,node,msg);
+                node.warn(branch_f);
+                node.warn(path_f);
+                node.warn(pathto_f);
                 repo.move(branch_f, path_f, pathto_f, callbackErr);
             }else if (node.action == "remove") {
                 var branch_f = RED.util.evaluateNodeProperty(node.branch,node.branchType,node,msg);
