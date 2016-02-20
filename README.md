@@ -29,6 +29,8 @@ Github Repo node. Can be used to search either:
  - Get contents from a certain path
  - Read content at a certain path
  - Write: Store content at a certain path. If the file specified in the path exists, the content is updated. If the file doesn't exist, it's created on the fly
+ - Move a file from A to B
+ - Remove a file
  - Delete a repository
  - Fork repository.
  - List forks.
@@ -62,8 +64,6 @@ Features to be implemented
  - Get details of a Pull Request
  - Create Pull Request
  - Get list of statuses for a particular commit
- - Move a file from A to B
- - Remove a file
  - Get information about a particular commit
  - getTree
  - retrieve the reference blob or tree sha

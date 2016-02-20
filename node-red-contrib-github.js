@@ -27,6 +27,8 @@ module.exports = function(RED) {
         this.pathType = n.pathType;
         this.contents = n.contents;
         this.contentsType = n.contentsType;
+        this.pathto = n.pathto;
+        this.pathtoType = n.pathtoType;
         var github = new (require('github-api'))({
           token: RED.nodes.getNode(n.github).credentials.token,
           auth: "oauth"
@@ -81,6 +83,15 @@ module.exports = function(RED) {
                 var contents_f = RED.util.evaluateNodeProperty(node.contents,node.contentsType,node,msg);
                 var options = {};
                 repo.write(branch_f, path_f, contents_f, 'YOUR_COMMIT_MESSAGE', options, callbackErr);
+            }else if (node.action == "move") {
+                var branch_f = RED.util.evaluateNodeProperty(node.branch,node.branchType,node,msg);
+                var path_f = RED.util.evaluateNodeProperty(node.path,node.pathType,node,msg);
+                var pathto_f = RED.util.evaluateNodeProperty(node.pathto,node.pathtoType,node,msg);
+                repo.move(branch_f, path_f, pathto_f, callbackErr);
+            }else if (node.action == "remove") {
+                var branch_f = RED.util.evaluateNodeProperty(node.branch,node.branchType,node,msg);
+                var path_f = RED.util.evaluateNodeProperty(node.path,node.pathType,node,msg);
+                repo.remove(branch_f, path_f, callbackErr);
             }
         });
     }

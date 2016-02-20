@@ -57,6 +57,8 @@
             <option value="contents" outputs="1">Get contents</option>
             <option value="read" outputs="1">Read file</option>
             <option value="write" outputs="0">Write to file</option>
+            <option value="move" outputs="0">Move file</option>
+            <option value="remove" outputs="0">Remove file</option>
             <option value="delete" outputs="0">Delete repo</option>
             <option value="fork" outputs="0">Fork a repo</option>
             <option value="listforks" outputs="1">List forks</option>
@@ -75,6 +77,10 @@
             <label for="node-input-contents">&nbsp;</label>Contents:<input type="text" style="width:208px" id="node-input-contents">
             <input type="hidden" id="node-input-contentsType">
         </div>
+        <div class="form-row" id="node-action-pathto">
+            <label for="node-input-pathto">&nbsp;</label>Path to:<input type="text" style="width:208px" id="node-input-pathto">
+            <input type="hidden" id="node-input-pathtoType">
+        </div>
     </div>
 </script>
 
@@ -92,25 +98,30 @@
         $("#node-input-branch").typedInput({default:'str', typeField: $("#node-input-branchType"), types:['msg','flow','global','str']});
         $("#node-input-path").typedInput({default:'str', typeField: $("#node-input-pathType"),types:['msg','flow','global','str']});
         $("#node-input-contents").typedInput({default:'str', typeField: $("#node-input-contentsType"),types:['msg','flow','global','str']});
-
+        $("#node-input-pathto").typedInput({default:'str', typeField: $("#node-input-pathtoType"),types:['msg','flow','global','str']});
 
         function hideExtraActions(){
             $("#node-action-branch").hide();
             $("#node-action-path").hide();
             $("#node-action-contents").hide();
+            $("#node-action-pathto").hide();
         }
 
         $("#node-input-action").change(function(){
             var so = $("#node-input-action option:selected").val();
             hideExtraActions();
             if(so=="show" || so=="delete" || so=="listbraches" || so=="fork" || so=="listforks" || so=="contributors"){
-            }else if (so == "read" || so == "contents") {
+            }else if (so=="read" || so=="contents" || so=="remove") {
                 $("#node-action-branch").show();
                 $("#node-action-path").show();
             }else if (so == "write") {
                 $("#node-action-branch").show();
                 $("#node-action-path").show();
                 $("#node-action-contents").show();
+            }else if (so == "move") {
+              $("#node-action-branch").show();
+              $("#node-action-path").show();
+              $("#node-action-pathto").show();
             }
         });
 
@@ -132,7 +143,9 @@
           branch: { value:"master"},
           branchType: {value:""},
           path: {value:""},
-          pathType: {value:""},
+          pathType: {value:"str"},
+          pathto: {value:""},
+          pathtoType: {value:"str"},
           contents: {value:"payload"},
           contentsType: {value:"msg"},
           outputs: {value: 1}
